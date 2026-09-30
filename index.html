@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIVA-SKIN | Beauty Store</title>
+
+<style>
+:root {
+  --blue: #397ee8;
+  --dark: #174a91;
+  --light: #eaf3ff;
+  --white: #ffffff;
+  --text: #26364d;
+  --muted: #718096;
+  --pink: #fff0f5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f7faff;
+  color: var(--text);
+  line-height: 1.6;
+}
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+a { text-decoration: none; color: inherit; }
+header {
+  background: rgba(255,255,255,.97);
+  padding: 14px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 3px 18px #244a7b12;
+  flex-wrap: wrap;
+}
+.logo { font-size: 25px; font-weight: 800; color: var(--blue); }
+.logo span { color: #ef8cb5; }
+nav { display: flex; gap: 17px; flex-wrap: wrap; }
+nav a { font-size: 13px; font-weight: bold; }
+nav a:hover { color: var(--blue); }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 17px;
+  background: var(--blue);
+  color: white;
+  font-weight: bold;
+  transition: .2s;
+}
+.btn:hover { background: var(--dark); transform: translateY(-1px); }
+.btn-light { background: var(--light); color: var(--dark); }
+.btn-light:hover { background: #d8e8ff; }
+section { padding: 65px 7%; scroll-margin-top: 85px; }
+.hero {
+  min-height: 490px;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 35px;
+  align-items: center;
+  background: linear-gradient(120deg, #e5f0ff, #fff1f7 95%);
+}
+.eyebrow {
+  color: var(--blue);
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+.hero h1 { font-size: clamp(35px, 5vw, 58px); line-height: 1.12; margin: 15px 0; }
+.hero h1 span { color: var(--blue); }
+.hero p { color: var(--muted); max-width: 490px; margin-bottom: 24px; }
+.hero img {
+  width: 100%; height: 340px; object-fit: cover;
+  border-radius: 25px; box-shadow: 0 15px 40px #315d9630;
+}
+.stats { display: flex; gap: 25px; margin-top: 28px; flex-wrap: wrap; }
+.stats strong { color: var(--dark); display: block; font-size: 21px; }
+.stats small { color: var(--muted); }
+.section-title { text-align: center; margin-bottom: 32px; }
+.section-title h2 { font-size: 30px; color: var(--dark); }
+.section-title p { color: var(--muted); margin-top: 5px; }
+.features {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
+  margin-top: -1px; padding-top: 28px; padding-bottom: 28px;
+}
+.feature {
+  background: white; padding: 22px; border-radius: 15px;
+  text-align: center; box-shadow: 0 5px 20px #244a7b09;
+}
+.feature .emoji { font-size: 30px; }
+.feature h3 { font-size: 16px; margin: 7px 0; }
+.feature p { font-size: 13px; color: var(--muted); }
+.toolbar {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;
+}
+.toolbar input, .toolbar select { flex: 1; min-width: 180px; }
+input, textarea, select {
+  width: 100%; padding: 12px; border: 1px solid #dce5f1;
+  border-radius: 9px; background: white; outline: none;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--blue); }
+.grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 20px;
+}
+.product {
+  background: white; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 5px 22px #315d9610; transition: .2s;
+}
+.product:hover { transform: translateY(-4px); box-shadow: 0 10px 25px #315d961b; }
+.product img { width: 100%; height: 205px; object-fit: cover; background: var(--light); }
+.product-info { padding: 15px; }
+.tag {
+  display: inline-block; font-size: 11px; background: var(--light);
+  color: var(--dark); padding: 4px 9px; border-radius: 20px;
+}
+.product h3 { font-size: 16px; margin: 8px 0 3px; }
+.product p { color: var(--muted); font-size: 12px; min-height: 38px; }
+.price { color: var(--blue); font-weight: 800; margin: 9px 0 12px; }
+.product .btn { width: 100%; }
+.about {
+  background: linear-gradient(120deg,#e9f3ff,#fff3f8);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 35px; align-items: center;
+}
+.about img { width: 100%; height: 330px; object-fit: cover; border-radius: 20px; }
+.about h2 { font-size: 32px; color: var(--dark); margin: 12px 0; }
+.about p { color: var(--muted); margin-bottom: 14px; }
+.check { margin: 10px 0; }
+.panel {
+  background: white; padding: 25px; border-radius: 17px;
+  box-shadow: 0 5px 25px #244a7b0c; margin-bottom: 20px;
+}
+.panel h3 { color: var(--dark); margin-bottom: 16px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; }
+.full { grid-column: 1 / -1; }
+.cart-row {
+  display: grid; grid-template-columns: 75px 1fr auto; gap: 15px;
+  align-items: center; border-bottom: 1px solid #edf1f7; padding: 15px 0;
+}
+.cart-row img { width: 75px; height: 75px; object-fit: cover; border-radius: 10px; }
+.cart-row p { color: var(--blue); font-weight: bold; }
+.qty { display: flex; gap: 8px; align-items: center; margin-top: 6px; }
+.qty button, .remove {
+  border: 0; border-radius: 6px; background: var(--light);
+  padding: 4px 10px; color: var(--dark);
+}
+.remove { background: var(--pink); color: #c23c6b; }
+.summary-line { display: flex; justify-content: space-between; gap: 15px; margin: 12px 0; }
+.total { font-size: 20px; font-weight: bold; color: var(--dark); }
+.status {
+  display: inline-block; background: #e3f8eb; color: #167c45;
+  padding: 4px 10px; border-radius: 20px; font-size: 12px;
+}
+.order-card { border: 1px solid #e5edf7; padding: 17px; border-radius: 12px; margin-bottom: 12px; }
+.order-card h4 { margin-bottom: 6px; }
+.muted { color: var(--muted); font-size: 13px; }
+.notice {
+  background: #fff4d9; padding: 12px; border-radius: 9px;
+  font-size: 13px; color: #805c10; margin-bottom: 15px;
+}
+.empty { text-align: center; padding: 30px 10px; color: var(--muted); }
+footer { background: #153b70; color: white; padding: 40px 7% 20px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px; }
+footer h3, footer h4 { margin-bottom: 12px; }
+footer p, footer a { font-size: 13px; color: #d7e6ff; }
+footer a { display: block; margin: 5px 0; }
+.copyright { text-align: center; border-top: 1px solid #ffffff25; padding-top: 15px; margin-top: 25px; }
+.hidden { display: none !important; }
+#toast {
+  position: fixed; bottom: 22px; right: 22px; z-index: 50;
+  background: #174a91; color: white; padding: 13px 20px;
+  border-radius: 10px; box-shadow: 0 5px 20px #0002;
+  display: none; max-width: 85%;
+}
+@media(max-width: 950px) {
+  .grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  header { justify-content: center; }
+  nav { justify-content: center; }
+}
+@media(max-width: 650px) {
+  section { padding: 42px 5%; }
+  .hero, .about { grid-template-columns: 1fr; }
+  .hero img { height: 250px; }
+  .features { grid-template-columns: 1fr; }
+  .grid { gap: 12px; }
+  .product img { height: 150px; }
+  .product-info { padding: 10px; }
+  .product h3 { font-size: 14px; }
+  .product .btn { padding: 8px 5px; font-size: 12px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .cart-row { grid-template-columns: 60px 1fr; }
+  .cart-row img { width: 60px; height: 60px; }
+  .cart-row > div:last-child { grid-column: 2; }
+  .header-actions { justify-content: center; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#beranda" class="logo">DIVA<span>-SKIN</span></a>
+
+  <nav>
+    <a href="#beranda">Beranda</a>
+    <a href="#produk">Produk</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#pesanan">Pesanan</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="btn btn-light" onclick="goTo('keranjang')">
+      🛒 <span id="cart-count">0</span>
+    </button>
+    <button class="btn" id="login-nav" onclick="goTo('login')">Login</button>
+    <button class="btn btn-light hidden" id="logout-nav" onclick="logout()">Keluar</button>
+  </div>
+</header>
+
+<main>
+  <!-- BERANDA -->
+  <section class="hero" id="beranda">
+    <div>
+      <span class="eyebrow">YOUR BEAUTY, YOUR CONFIDENCE ✨</span>
+      <h1>Rawat Kulitmu,<br><span>Sayangi Dirimu.</span></h1>
+      <p>
+        Temukan produk skincare pilihan untuk menemani rutinitas
+        perawatan kulitmu. Belanja kebutuhan kecantikan jadi lebih mudah
+        bersama DIVA-SKIN.
+      </p>
+      <button class="btn" onclick="goTo('produk')">Belanja Sekarang →</button>
+      <button class="btn btn-light" onclick="goTo('tentang')">Tentang Kami</button>
+      <div class="stats">
+        <div><strong>6+</strong><small> Pilihan Produk</small></div>
+        <div><strong>100%</strong><small> Fokus Kecantikan</small></div>
+        <div><strong>♡</strong><small> Care for Your Skin</small></div>
+      </div>
+    </div>
+    <img
+      src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=85"
+      alt="Produk perawatan kulit"
+    >
+  </section>
+
+  <!-- KEUNGGULAN -->
+  <section class="features">
+    <div class="feature">
+      <div class="emoji">💙</div>
+      <h3>Pilihan Skincare</h3>
+      <p>Berbagai kategori untuk melengkapi rutinitas perawatanmu.</p>
+    </div>
+    <div class="feature">
+      <div class="emoji">🛍️</div>
+      <h3>Belanja Praktis</h3>
+      <p>Pilih produk, masukkan keranjang, dan isi checkout dengan mudah.</p>
+    </div>
+    <div class="feature">
+      <div class="emoji">✨</div>
+      <h3>Self-Care Time</h3>
+      <p>Luangkan waktu untuk merawat dan menyayangi diri sendiri.</p>
+    </div>
+  </section>
+
+  <!-- PRODUK -->
+  <section id="produk">
+    <div class="section-title">
+      <span class="eyebrow">OUR COLLECTION</span>
+      <h2>Produk Pilihan</h2>
+      <p>Temukan skincare yang sesuai dengan kebutuhanmu.</p>
+    </div>
+
+    <div class="toolbar">
+      <input id="search-product" type="search" placeholder="🔍 Cari produk skincare..."
+             oninput="renderProducts()">
+      <select id="category-filter" onchange="renderProducts()">
+        <option value="Semua">Semua Kategori</option>
+        <option value="Serum">Serum</option>
+        <option value="Moisturizer">Moisturizer</option>
+        <option value="Face Wash">Face Wash</option>
+        <option value="Sunscreen">Sunscreen</option>
+        <option value="Masker">Masker</option>
+        <option value="Micellar Water">Micellar Water</option>
+      </select>
+    </div>
+
+    <div class="grid" id="product-list"></div>
+  </section>
+
+  <!-- TENTANG -->
+  <section class="about" id="tentang">
+    <img
+      src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=900&q=85"
+      alt="Perawatan wajah"
+      loading="lazy"
+    >
+    <div>
+      <span class="eyebrow">ABOUT DIVA-SKIN</span>
+      <h2>Tentang DIVA-SKIN</h2>
+      <p>
+        DIVA-SKIN adalah konsep toko skincare yang hadir untuk membantu
+        pelanggan menemukan berbagai produk perawatan kulit dalam satu tempat.
+      </p>
+      <p>
+        Kami percaya bahwa merawat kulit merupakan salah satu bentuk
+        perhatian terhadap diri sendiri. Karena itu, kami menghadirkan
+        tampilan belanja yang sederhana, nyaman, dan mudah digunakan.
+      </p>
+      <div class="check">💙 Beragam kategori perawatan kulit</div>
+      <div class="check">🌸 Tampilan modern dan mudah digunakan</div>
+      <div class="check">🛍️ Keranjang dan checkout praktis</div>
+      <button class="btn" onclick="goTo('produk')">Lihat Produk</button>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section id="login">
+    <div class="section-title">
+      <span class="eyebrow">WELCOME BACK</span>
+      <h2>Login Pelanggan</h2>
+      <p>Masuk untuk menggunakan fitur pelanggan DIVA-SKIN.</p>
+    </div>
+
+    <div class="panel" style="max-width:500px;margin:auto">
+      <div class="notice">
+        Ini adalah login demo untuk proyek sekolah. Akun disimpan di browser
+        ini saja, bukan sistem autentikasi online.
+      </div>
+      <form onsubmit="login(event)">
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" placeholder="nama@email.com" required>
+        </div>
+        <div class="field">
+          <label for="login-password">Kata Sandi</label>
+          <input id="login-password" type="password" minlength="4"
+                 placeholder="Masukkan kata sandi" required>
+        </div>
+        <button class="btn" style="width:100%">Login</button>
+      </form>
+      <p class="muted" style="text-align:center;margin-top:15px">
+        Belum memiliki akun?
+        <a href="#daftar" style="color:var(--blue);font-weight:bold">Daftar di sini</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- DAFTAR -->
+  <section id="daftar" style="padding-top:0">
+    <div class="panel" style="max-width:500px;margin:auto">
+      <h3>✨ Buat Akun Baru</h3>
+      <form onsubmit="register(event)">
+        <div class="field">
+          <label for="register-name">Nama Lengkap</label>
+          <input id="register-name" required placeholder="Nama kamu">
+        </div>
+        <div class="field">
+          <label for="register-email">Email</label>
+          <input id="register-email" type="email" required placeholder="nama@email.com">
+        </div>
+        <div class="field">
+          <label for="register-password">Kata Sandi</label>
+          <input id="register-password" type="password" minlength="4" required
+                 placeholder="Minimal 4 karakter">
+        </div>
+        <button class="btn" style="width:100%">Daftar Sekarang</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- KERANJANG -->
+  <section id="keranjang">
+    <div class="section-title">
+      <span class="eyebrow">YOUR SHOPPING BAG</span>
+      <h2>Keranjang Belanja 🛒</h2>
+      <p>Periksa produk pilihanmu sebelum checkout.</p>
+    </div>
+    <div class="panel">
+      <div id="cart-items"></div>
+      <div id="cart-summary" class="hidden">
+        <hr style="border:0;border-top:1px solid #edf1f7;margin:20px 0">
+        <div class="summary-line total">
+          <span>Total Belanja</span><span id="cart-total">Rp0</span>
+        </div>
+        <button class="btn" style="width:100%;margin-top:10px"
+                onclick="startCheckout()">Lanjut ke Checkout →</button>
+        <button class="btn btn-light" style="width:100%;margin-top:8px"
+                onclick="goTo('produk')">Tambah Produk</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section id="checkout">
+    <div class="section-title">
+      <span class="eyebrow">ALMOST YOURS</span>
+      <h2>Checkout</h2>
+      <p>Lengkapi informasi pengiriman pesananmu.</p>
+    </div>
+    <div class="panel">
+      <div class="notice">
+        Checkout ini merupakan simulasi. Tidak ada pembayaran atau pengiriman
+        sungguhan yang diproses.
+      </div>
+      <div id="checkout-empty" class="empty">
+        Keranjangmu masih kosong.
+        <br><br><button class="btn" onclick="goTo('produk')">Pilih Produk</button>
+      </div>
+      <form id="checkout-form" class="hidden" onsubmit="placeOrder(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label for="buyer-name">Nama Penerima</label>
+            <input id="buyer-name" required placeholder="Nama lengkap">
+          </div>
+          <div class="field">
+            <label for="buyer-phone">Nomor Telepon</label>
+            <input id="buyer-phone" type="tel" required placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="field full">
+            <label for="buyer-address">Alamat Lengkap</label>
+            <textarea id="buyer-address" rows="3" required
+                      placeholder="Jalan, nomor rumah, desa, kecamatan, kota"></textarea>
+          </div>
+          <div class="field">
+            <label for="buyer-shipping">Metode Pengiriman</label>
+            <select id="buyer-shipping" required>
+              <option value="10000">Reguler — Rp10.000</option>
+              <option value="20000">Express — Rp20.000</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="buyer-payment">Metode Pembayaran</label>
+            <select id="buyer-payment" required>
+              <option value="COD">COD (simulasi)</option>
+              <option value="Transfer Bank">Transfer Bank (simulasi)</option>
+              <option value="E-Wallet">E-Wallet (simulasi)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel" style="background:#f7faff;box-shadow:none">
+          <h3>Ringkasan Pesanan</h3>
+          <div id="checkout-summary"></div>
+          <div class="summary-line"><span>Subtotal</span><span id="checkout-subtotal">Rp0</span></div>
+          <div class="summary-line"><span>Ongkir</span><span id="checkout-shipping">Rp10.000</span></div>
+          <hr style="border:0;border-top:1px solid #dce5f1;margin:12px 0">
+          <div class="summary-line total"><span>Total</span><span id="checkout-total">Rp0</span></div>
+        </div>
+        <button class="btn" style="width:100%">Buat Pesanan Sekarang</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PESANAN -->
+  <section id="pesanan">
+    <div class="section-title">
+      <span class="eyebrow">ORDER HISTORY</span>
+      <h2>Pesanan Saya 📦</h2>
+      <p>Lihat riwayat pesanan yang dibuat melalui demo ini.</p>
+    </div>
+    <div class="panel">
+      <div id="orders-list"></div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section id="kontak" style="background:linear-gradient(120deg,#eaf3ff,#fff1f7)">
+    <div class="section-title">
+      <span class="eyebrow">WE'D LOVE TO HEAR FROM YOU</span>
+      <h2>Hubungi Kami 💌</h2>
+      <p>Punya pertanyaan? Kirim pesan melalui formulir berikut.</p>
+    </div>
+    <div class="panel" style="max-width:650px;margin:auto">
+      <form onsubmit="sendMessage(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label for="contact-name">Nama</label>
+            <input id="contact-name" required placeholder="Nama kamu">
+          </div>
+          <div class="field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" type="email" required placeholder="nama@email.com">
+          </div>
+          <div class="field full">
+            <label for="contact-subject">Subjek</label>
+            <input id="contact-subject" required placeholder="Tentang produk atau pesanan">
+          </div>
+          <div class="field full">
+            <label for="contact-message">Pesan</label>
+            <textarea id="contact-message" rows="4" required
+                      placeholder="Tulis pesanmu di sini..."></textarea>
+          </div>
+        </div>
+        <button class="btn" style="width:100%">Kirim Pesan</button>
+      </form>
+      <p class="muted" style="margin-top:15px;text-align:center">
+        Catatan: formulir ini hanya simulasi dan belum mengirim pesan ke email.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3 style="font-size:25px">DIVA<span style="color:#ffb4d0">-SKIN</span></h3>
+      <p>Temukan rutinitas perawatan kulitmu dan jadikan self-care sebagai
+      bagian dari hari-harimu.</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <a href="#beranda">Beranda</a>
+      <a href="#produk">Produk</a>
+      <a href="#tentang">Tentang Kami</a>
+      <a href="#pesanan">Pesanan</a>
+    </div>
+    <div>
+      <h4>Informasi</h4>
+      <a href="#kontak">Kontak</a>
+      <a href="#login">Login Pelanggan</a>
+      <a href="#keranjang">Keranjang</a>
+      <p>Email: divaskin@example.com</p>
+      <p>Instagram: @divaskin</p>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>© 2026 DIVA-SKIN. Dibuat dengan 💙 untuk kecantikanmu.</p>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const products = [
+  {
+    id: 1, name: "Glow Serum", category: "Serum",
+    price: 85000, description: "Serum untuk melengkapi rutinitas perawatan kulit.",
+    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 2, name: "Hydra Moisturizer", category: "Moisturizer",
+    price: 65000, description: "Pelembap untuk membantu menjaga kelembapan kulit.",
+    image: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 3, name: "Gentle Face Wash", category: "Face Wash",
+    price: 45000, description: "Pembersih wajah untuk rutinitas harian.",
+    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 4, name: "Daily Sunscreen", category: "Sunscreen",
+    price: 75000, description: "Pelindung matahari untuk penggunaan sehari-hari.",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 5, name: "Soft Clay Mask", category: "Masker",
+    price: 55000, description: "Masker wajah untuk melengkapi perawatan mingguan.",
+    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 6, name: "Micellar Cleanser", category: "Micellar Water",
+    price: 40000, description: "Pembersih untuk membantu mengangkat kotoran dan makeup.",
+    image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80"
+  }
+];
+
+const rupiah = number => new Intl.NumberFormat("id-ID", {
+  style: "currency", currency: "IDR", maximumFractionDigits: 0
+}).format(number);
+
+function getData(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch (error) {
+    return fallback;
+  }
+}
+function saveData(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+let cart = getData("divaskin_cart", []);
+let orders = getData("divaskin_orders", []);
+let accounts = getData("divaskin_accounts", []);
+let currentUser = getData("divaskin_user", null);
+let toastTimer;
+
+function notify(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.style.display = "none", 2800);
+}
+
+function goTo(id) {
+  const section = document.getElementById(id);
+  if (section) section.scrollIntoView({ behavior: "smooth" });
+}
+
+function renderProducts() {
+  const search = document.getElementById("search-product").value.toLowerCase().trim();
+  const category = document.getElementById("category-filter").value;
+  const filtered = products.filter(product =>
+    (product.name.toLowerCase().includes(search) ||
+     product.category.toLowerCase().includes(search)) &&
+    (category === "Semua" || product.category === category)
+  );
+
+  const container = document.getElementById("product-list");
+  if (!filtered.length) {
+    container.innerHTML = '<div class="empty" style="grid-column:1/-1">Produk tidak ditemukan.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(product => `
+    <article class="product">
+      <img src="${product.image}" alt="${product.name}" loading="lazy">
+      <div class="product-info">
+        <span class="tag">${product.category}</span>
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <div class="price">${rupiah(product.price)}</div>
+        <button class="btn" onclick="addToCart(${product.id})">+ Keranjang</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function addToCart(id) {
+  const product = products.find(item => item.id === id);
+  const item = cart.find(item => item.id === id);
+  if (item) item.qty++;
+  else cart.push({ id: product.id, qty: 1 });
+  saveData("divaskin_cart", cart);
+  renderCart();
+  notify(product.name + " ditambahkan ke keranjang!");
+}
+
+function changeQty(id, amount) {
+  const item = cart.find(item => item.id === id);
+  if (!item) return;
+  item.qty += amount;
+  if (item.qty <= 0) cart = cart.filter(item => item.id !== id);
+  saveData("divaskin_cart", cart);
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  saveData("divaskin_cart", cart);
+  renderCart();
+  notify("Produk dihapus dari keranjang.");
+}
+
+function getCartDetails() {
+  return cart.map(item => {
+    const product = products.find(p => p.id === item.id);
+    return product ? { ...product, qty: item.qty } : null;
+  }).filter(Boolean);
+}
+
+function getSubtotal() {
+  return getCartDetails().reduce((sum, item) => sum + item.price * item.qty, 0);
+}
+
+function renderCart() {
+  const items = getCartDetails();
+  const container = document.getElementById("cart-items");
+  document.getElementById("cart-count").textContent =
+    cart.reduce((sum, item) => sum + item.qty, 0);
+
+  if (!items.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div style="font-size:42px">🛍️</div>
+        <h3>Keranjang masih kosong</h3>
+        <p>Yuk, temukan skincare favoritmu!</p><br>
+        <button class="btn" onclick="goTo('produk')">Mulai Belanja</button>
+      </div>`;
+    document.getElementById("cart-summary").classList.add("hidden");
+  } else {
+    container.innerHTML = items.map(item => `
+      <div class="cart-row">
+        <img src="${item.image}" alt="${item.name}">
+        <div>
+          <strong>${item.name}</strong>
+          <p>${rupiah(item.price)}</p>
+          <div class="qty">
+            <button aria-label="Kurangi jumlah" onclick="changeQty(${item.id},-1)">−</button>
+            <span>${item.qty}</span>
+            <button aria-label="Tambah jumlah" onclick="changeQty(${item.id},1)">+</button>
+          </div>
+        </div>
+        <div>
+          <strong>${rupiah(item.price * item.qty)}</strong><br>
+          <button class="remove" style="margin-top:8px"
+                  onclick="removeFromCart(${item.id})">Hapus</button>
+        </div>
+      </div>
+    `).join("");
+    document.getElementById("cart-summary").classList.remove("hidden");
+    document.getElementById("cart-total").textContent = rupiah(getSubtotal());
+  }
+  updateCheckout();
+}
+
+function startCheckout() {
+  if (!cart.length) {
+    notify("Keranjangmu masih kosong.");
+    goTo("produk");
+    return;
+  }
+  if (!currentUser) {
+    notify("Silakan login atau daftar sebelum checkout.");
+    goTo("login");
+    return;
+  }
+  updateCheckout();
+  goTo("checkout");
+}
+
+function updateCheckout() {
+  const items = getCartDetails();
+  const empty = !items.length;
+  document.getElementById("checkout-empty").classList.toggle("hidden", !empty);
+  document.getElementById("checkout-form").classList.toggle("hidden", empty);
+  if (empty) return;
+
+  document.getElementById("checkout-summary").innerHTML = items.map(item => `
+    <div class="summary-line">
+      <span>${item.name} × ${item.qty}</span>
+      <span>${rupiah(item.price * item.qty)}</span>
+    </div>
+  `).join("");
+
+  const subtotal = getSubtotal();
+  const shipping = Number(document.getElementById("buyer-shipping").value || 10000);
+  document.getElementById("checkout-subtotal").textContent = rupiah(subtotal);
+  document.getElementById("checkout-shipping").textContent = rupiah(shipping);
+  document.getElementById("checkout-total").textContent = rupiah(subtotal + shipping);
+}
+
+document.getElementById("buyer-shipping").addEventListener("change", updateCheckout);
+
+function register(event) {
+  event.preventDefault();
+  const name = document.getElementById("register-name").value.trim();
+  const email = document.getElementById("register-email").value.trim().toLowerCase();
+  const password = document.getElementById("register-password").value;
+
+  if (accounts.some(account => account.email === email)) {
+    notify("Email sudah terdaftar. Silakan login.");
+    return;
+  }
+  accounts.push({ name, email, password });
+  saveData("divaskin_accounts", accounts);
+  currentUser = { name, email };
+  saveData("divaskin_user", currentUser);
+  updateUserUI();
+  event.target.reset();
+  notify("Pendaftaran berhasil, selamat datang " + name + "!");
+  goTo("produk");
+}
+
+function login(event) {
+  event.preventDefault();
+  const email = document.getElementById("login-email").value.trim().toLowerCase();
+  const password = document.getElementById("login-password").value;
+  const account = accounts.find(item => item.email === email && item.password === password);
+
+  if (!account) {
+    notify("Email atau kata sandi salah. Jika belum punya akun, silakan daftar.");
+    return;
+  }
+  currentUser = { name: account.name, email: account.email };
+  saveData("divaskin_user", currentUser);
+  updateUserUI();
+  event.target.reset();
+  notify("Login berhasil. Halo, " + currentUser.name + "!");
+  goTo("produk");
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem("divaskin_user");
+  updateUserUI();
+  notify("Kamu sudah keluar dari akun.");
+  goTo("beranda");
+}
+
+function updateUserUI() {
+  const loginButton = document.getElementById("login-nav");
+  const logoutButton = document.getElementById("logout-nav");
+
+  loginButton.classList.toggle("hidden", !!currentUser);
+  logoutButton.classList.toggle("hidden", !currentUser);
+  loginButton.textContent = currentUser ? "Akun" : "Login";
+  if (currentUser) loginButton.onclick = () => notify("Login sebagai " + currentUser.name);
+  else loginButton.onclick = () => goTo("login");
+
+  if (currentUser) {
+    document.getElementById("buyer-name").value = currentUser.name;
+    document.getElementById("contact-name").value = currentUser.name;
+    document.getElementById("contact-email").value = currentUser.email;
+  }
+  renderOrders();
+}
+
+function placeOrder(event) {
+  event.preventDefault();
+  if (!currentUser) {
+    notify("Silakan login terlebih dahulu.");
+    goTo("login");
+    return;
+  }
+  if (!cart.length) {
+    notify("Keranjang masih kosong.");
+    goTo("produk");
+    return;
+  }
+
+  const items = getCartDetails();
+  const subtotal = getSubtotal();
+  const shipping = Number(document.getElementById("buyer-shipping").value);
+  const order = {
+    number: "DS-" + Date.now().toString().slice(-8),
+    date: new Date().toLocaleString("id-ID"),
+    email: currentUser.email,
+    customer: document.getElementById("buyer-name").value.trim(),
+    phone: document.getElementById("buyer-phone").value.trim(),
+    address: document.getElementById("buyer-address").value.trim(),
+    shipping: shipping,
+    payment: document.getElementById("buyer-payment").value,
+    items: items.map(item => ({
+      id: item.id, name: item.name, price: item.price, qty: item.qty
+    })),
+    total: subtotal + shipping,
+    status: "Menunggu konfirmasi"
+  };
+
+  orders.unshift(order);
+  saveData("divaskin_orders", orders);
+  cart = [];
+  saveData("divaskin_cart", cart);
+  renderCart();
+  renderOrders();
+  event.target.reset();
+  if (currentUser) document.getElementById("buyer-name").value = currentUser.name;
+  notify("Pesanan berhasil dibuat dalam simulasi!");
+  goTo("pesanan");
+}
+
+function renderOrders() {
+  const container = document.getElementById("orders-list");
+  const visibleOrders = currentUser
+    ? orders.filter(order => order.email === currentUser.email)
+    : [];
+
+  if (!currentUser) {
+    container.innerHTML = `
+      <div class="empty">
+        <h3>Login untuk melihat pesanan</h3><br>
+        <button class="btn" onclick="goTo('login')">Login</button>
+      </div>`;
+    return;
+  }
+  if (!visibleOrders.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div style="font-size:42px">📦</div>
+        <h3>Belum ada pesanan</h3>
+        <p>Pesananmu akan muncul di sini setelah checkout.</p><br>
+        <button class="btn" onclick="goTo('produk')">Belanja Sekarang</button>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = visibleOrders.map(order => `
+    <div class="order-card">
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <h4>Pesanan ${order.number}</h4>
+        <span class="status">${order.status}</span>
+      </div>
+      <p class="muted">${order.date}</p>
+      <hr style="border:0;border-top:1px solid #edf1f7;margin:12px 0">
+      ${order.items.map(item => `
+        <div class="summary-line">
+          <span>${item.name} × ${item.qty}</span>
+          <span>${rupiah(item.price * item.qty)}</span>
+        </div>
+      `).join("")}
+      <p class="muted" style="margin-top:8px">Pengiriman: ${rupiah(order.shipping)}</p>
+      <p class="muted">Pembayaran: ${order.payment} (simulasi)</p>
+      <p class="muted">Alamat: ${escapeHTML(order.address)}</p>
+      <div class="summary-line total" style="margin-top:12px">
+        <span>Total</span><span>${rupiah(order.total)}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
+function sendMessage(event) {
+  event.preventDefault();
+  notify("Pesan demo berhasil disiapkan. Belum dikirim ke server atau email.");
+  event.target.reset();
+  if (currentUser) {
+    document.getElementById("contact-name").value = currentUser.name;
+    document.getElementById("contact-email").value = currentUser.email;
+  }
+}
+
+renderProducts();
+renderCart();
+updateUserUI();
+</script>
+
+</body>
+</html>
